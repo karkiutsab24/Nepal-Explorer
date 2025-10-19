@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nepal Explorer</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<style>
+  :root {
+    --bg-color: #f5f5f5;
+    --text-color: #222;
+    --card-bg: #fff;
+    --accent: #1e90ff;
+    --card-text-color: #222;
+  }
+  body.dark {
+    --bg-color: #0f1724;
+    --text-color: #f5f5f5;
+    --card-bg: #1e293b;
+    --card-text-color: #fff;
+  }
+  body {
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:var(--bg-color);
+    color:var(--text-color);
+  }
+  header {
+    background:linear-gradient(120deg,red,blue);
+    color:white;
+    text-shadow: 2px 2px 10px black;
+    padding:15px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  header h1 { margin:0; }
+  nav button { padding:8px 15px; border:none; border-radius:5px; cursor:pointer; }
+
+  main {
+    padding:30px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+  }
+  .card {
+    position: relative;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    color: var(--card-text-color);
+    padding: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+  }
+  .card h3, .card p {
+    margin: 0;
+    color: var(--card-text-color);
+    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  }
+  .card h3 { font-size: 1.5em; margin-bottom: 5px; }
+
+  .section {
+    display:none;
+    padding:30px;
+    max-width:900px;
+    margin:auto;
+  }
+  .section.active { display:block; }
+  .section img { width:100%; border-radius:10px; margin-bottom:20px; }
+
+  .tabs {
+    display:flex;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .tabs button {
+    padding:8px 15px;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+    background:var(--accent);
+    color:white;
+  }
+  .tabs button.active { background:#005cbf; }
+
+  .tab-content img {
+    width:100%;
+    border-radius:10px;
+    margin-bottom:20px;
+  }
+
+  .back-btn {
+    margin-bottom:20px;
+    padding:8px 15px;
+    background:var(--accent);
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+  }
+   .Intro {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-bottom: 40px;}
+
+  footer { text-align:center; padding:20px; background:var(--accent); color:white; margin-top:30px; }
+  .darklight{
+    background: linear-gradient(120deg,gray, white);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Nepal Explorer</h1>
+  <nav>
+    <button onclick="toggleMode()" class="Darklight">Dark/Light</button>
+  </nav>
+</header>
+
+<div class="Intro">
+  <h1>Welcome to Nepal Explorer</h1>
+  <p>Discover the beauty, culture, and adventure of Nepal — from the majestic peaks of the Himalayas to the tranquil lakes of Pokhara and the ancient temples of Bhaktapur. Nepal Explorer brings you the most iconic and hidden destinations of this breathtaking country, all in one place.</p>
+</div>
+
+<main id="main-section">
+  <div class="card" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/b/b6/Mount_Everest_as_seen_from_Drukair2_PLW_edit_Cropped.jpg')" onclick="showSection('everest')">
+    <div><h3>Mount Everest</h3><p>World’s highest peak</p></div>
+  </div>
+  <div class="card" style="background-image:url('https://www.adventurevisiontreks.com/uploads/pokhara-view-from-world-peace-stupa.jpg')" onclick="showSection('pokhara')">
+    <div><h3>Pokhara</h3><p>Serene lakes & Annapurna</p></div>
+  </div>
+  <div class="card" style="background-image:url('https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0d/ef/5c/33/nyatapola-bhaktapur.jpg?w=1200&h=700&s=1')" onclick="showSection('bhaktapur')">
+    <div><h3>Bhaktapur</h3><p>Rich culture & temples</p></div>
+  </div>
+  <div class="card" style="background-image:url('https://hikeontreks.com/wp-content/uploads/2021/12/Sauraha-Chitwan-National-Park.jpg')" onclick="showSection('chitwan')">
+    <div><h3>Chitwan</h3><p>Wildlife & jungle safaris</p></div>
+  </div>
+  <div class="card" style="background-image:url('https://upload.wikimedia.org/wikipedia/commons/1/18/BRP_Lumbini_Mayadevi_temple.jpg')" onclick="showSection('lumbini')">
+    <div><h3>Lumbini</h3><p>Birthplace of Buddha</p></div>
+  </div>
+  <div class="card" style="background-image:url('https://www.mountainiq.com/wp-content/uploads/2016/06/ghorepani-poon-hill-trek-1.jpg')" onclick="showSection('annapurna')">
+    <div><h3>Annapurna</h3><p>Famous trekking region</p></div>
+  </div>
+</main>
+
+<!-- Everest Section -->
+<div id="everest" class="section">
+  <button class="back-btn" onclick="showMain()">← Back</button>
+  <img src="" alt="Everest">
+  <h2>Mount Everest</h2>
+  <p>Mount Everest, located in the Himalayas on the Nepal-China border, is the world’s highest peak at 8,848 meters. Its towering slopes, glaciers, and ridges make it an iconic natural landmark. Climbers from across the globe attempt its ascent, enduring extreme cold, thin air, and challenging terrain..</p>
+  <div class="tabs">
+    <button class="active" onclick="openTab(event,'everest1')">Info 1</button>
+    <button onclick="openTab(event,'everest2')">Info 2</button>
+    <button onclick="openTab(event,'everest3')">Info 3</button>
+  </div>
+  <div id="everest1" class="tab-content"><img src="https://plus.unsplash.com/premium_photo-1688645554172-d3aef5f837ce?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZXZlcmVzdHxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000" alt=""><p>-Mount Everest, known as Sagarmatha in Nepal and Chomolungma in Tibet, is the tallest mountain in the world, standing at 8,848 meters above sea level. Located in the Himalayas on the Nepal-China border, it features towering icefalls, deep crevasses, and rocky ridges. The Khumbu Glacier and surrounding peaks create a dramatic landscape of glaciers, snowfields, and cliffs. Everest’s extreme altitude results in low oxygen levels, intense cold, and harsh weather conditions, challenging even experienced climbers. Its geographical prominence makes it a natural landmark visible from miles away, symbolizing human curiosity, endurance, and the awe-inspiring scale of Earth’s highest points.-</p></div>
+  <div id="everest2" class="tab-content" style="display:none;"><img src="https://admin.ntb.gov.np/image-cache/CSK_028____Pic_4-1635071361.jpg?p=main&s=9cb03bbbb4b91e50781774ea9887e924" alt=""><p>-Mount Everest attracts adventurers and climbers from all over the world seeking to reach its summit. The most popular route is via the South Col from Nepal, which includes trekking through Sherpa villages, crossing suspension bridges, and navigating glaciers. Climbers face extreme challenges, including altitude sickness, avalanches, and freezing temperatures, requiring careful preparation and expert guides. The trek to Everest Base Camp itself is a remarkable journey, offering panoramic views of Himalayan peaks and a glimpse into Sherpa culture. Conquering Everest represents not only a physical achievement but also a mental and emotional triumph, inspiring generations of mountaineers and adventurers.-</p></div>
+  <div id="everest3" class="tab-content" style="display:none;"><img src="https://cimages1.touristlink.com/data/cache/E/V/E/N/I/N/G/V/evening-view-from-everest_640_480.jpg" alt=""><p>-Mount Everest holds deep spiritual significance for local communities, particularly the Sherpa people. Revered as Sagarmatha, meaning “Forehead of the Sky,” it is considered sacred, with rituals performed before climbing. Monasteries, prayer flags, and shrines dot the surrounding regions, reflecting the mountain’s cultural and religious importance. Festivals and local traditions often celebrate the mountains, symbolizing respect for nature and the elements. Beyond local reverence, Everest inspires climbers and travelers worldwide, representing human determination, courage, and the desire to explore the planet’s extremes. Its cultural heritage blends seamlessly with its natural majesty, making it a landmark of both human and ecological significance.-</p></div>
+</div>
+
+<!-- Pokhara Section -->
+<div id="pokhara" class="section">
+  <button class="back-btn" onclick="showMain()">← Back</button>
+  <img src="" alt="Pokhara">
+  <h2>Pokhara</h2>
+  <p>Pokhara, a scenic city in central Nepal, is renowned for its serene lakes, lush greenery, and stunning views of the Annapurna Himalayan range. Often called the “Gateway to the Himalayas,” it attracts travelers seeking natural beauty, adventure activities, and tranquility, making it one of Nepal’s most popular tourist destinations.</p>
+  <div class="tabs">
+    <button class="active" onclick="openTab(event,'pokhara1')">Info 1</button>
+    <button onclick="openTab(event,'pokhara2')">Info 2</button>
+    <button onclick="openTab(event,'pokhara3')">Info 3</button>
+  </div>
+  <div id="pokhara1" class="tab-content"><img src="https://xcmag.com/wp-content/uploads/2014/02/pokhara-602-320.gif" alt=""><p>-Pokhara lies in a valley surrounded by snow-capped mountains, including Annapurna and Machapuchare. Its landscape features clear lakes like Phewa, Begnas, and Rupa, which reflect the towering Himalayas. Rolling hills, waterfalls, and caves add to the region’s charm, providing countless opportunities for photography and sightseeing. The Seti River and its gorges enhance the natural diversity, making Pokhara a haven for nature lovers. Its moderate climate and lush greenery support abundant flora and fauna, offering a peaceful retreat from urban life. The combination of mountains, lakes, and rivers creates a unique ecosystem and breathtaking scenery that draws tourists, trekkers, and adventure seekers from around the world.-</p></div>
+  <div id="pokhara2" class="tab-content" style="display:none;"><img src="https://res.cloudinary.com/activeadventures/image/upload/c_scale,w_736/f_auto/q_auto/v1744258142/ezqktiazuup8p6gbxdlq?_a=BAAAV6DQ" alt=""><p>-Pokhara is a hub for adventure tourism, offering trekking, paragliding, boating, and zip-lining. Treks such as the Annapurna Base Camp and Ghorepani Poon Hill start from Pokhara, providing stunning Himalayan views. Phewa Lake allows boating and kayaking experiences, while paragliding from Sarangkot offers panoramic aerial perspectives of the city and mountains. Caving, mountain biking, and zip-lining attract thrill-seekers of all ages. The city’s infrastructure supports tourism with hotels, restaurants, and guide services, making adventure accessible. Pokhara’s mix of natural landscapes and adventure activities makes it a must-visit destination. Whether exploring the lakes, mountains, or local culture, visitors experience both excitement and relaxation in one of Nepal’s most enchanting regions.-</p></div>
+  <div id="pokhara3" class="tab-content" style="display:none;"><img src="https://www.andbeyond.com/wp-content/uploads/sites/5/pokhara-valley-nepal.jpg" alt=""><p>-Pokhara’s culture is a blend of ethnic groups, including Gurungs, Magars, and Newars, creating vibrant traditions and festivals. The city features ancient temples, monasteries, and local markets reflecting its heritage. Traditional crafts, local cuisine, and music contribute to a rich cultural experience. Pokhara also serves as a gateway to the Annapurna region, where Sherpa and Gurung communities welcome visitors along trekking routes. The harmonious coexistence of modern urban life with traditional customs creates a unique atmosphere. Visitors can explore local villages, learn about farming practices, and participate in festivals, gaining insight into Nepali life. The city’s combination of culture, hospitality, and natural beauty makes it both a spiritual and recreational retreat.-</p></div>
+</div>
+
+<!-- Bhaktapur Section -->
+<div id="bhaktapur" class="section">
+  <button class="back-btn" onclick="showMain()">← Back</button>
+  <img src="" alt="Bhaktapur">
+  <h2>Bhaktapur</h2>
+  <p>Bhaktapur, an ancient city in the Kathmandu Valley, is famous for its well-preserved medieval architecture, temples, and rich culture. Known as the “City of Devotees,” it showcases traditional Newar art, pottery, and festivals. Its narrow streets, historic squares, and heritage sites make it a captivating destination for culture and history lovers.</p>
+  <div class="tabs">
+    <button class="active" onclick="openTab(event,'bhaktapur1')">Info 1</button>
+    <button onclick="openTab(event,'bhaktapur2')">Info 2</button>
+    <button onclick="openTab(event,'bhaktapur3')">Info 3</button>
+  </div>
+  <div id="bhaktapur1" class="tab-content"><img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0c/11/27/a8/tallest-temple-of-nepal.jpg?w=1200&h=-1&s=1" alt=""><p>-Bhaktapur is renowned for its ancient architecture, including pagoda-style temples, palaces, and intricately carved wooden windows. The Durbar Square, a UNESCO World Heritage site, showcases historic monuments, stone statues, and ceremonial courtyards. Traditional brickwork, pottery, and water fountains highlight the city’s craftsmanship. Visitors can explore the 55-Window Palace, Nyatapola Temple, and Vatsala Temple, all representing centuries of artistic excellence. The city’s layout preserves its medieval charm, with narrow alleyways and traditional squares creating an immersive historical experience. Bhaktapur’s architecture reflects a rich cultural legacy, combining Hindu and Buddhist influences, making it a living museum of Nepalese history. Every corner tells a story of artistry, devotion, and heritage.-</p></div>
+  <div id="bhaktapur2" class="tab-content" style="display:none;"><img src="https://images.squarespace-cdn.com/content/v1/57b9b98a29687f1ef5c622df/1487895673391-0CPDBXETME6LTQC0M45T/00000000000000000000.jpg" alt=""><p>-Bhaktapur is a cultural hub with vibrant festivals, rituals, and traditional music. Major celebrations include Bisket Jatra, Gai Jatra, and Dashain, which involve colorful processions, dances, and religious ceremonies. Local artisans continue traditional crafts like pottery, weaving, and mask-making, keeping heritage alive. The city’s cuisine is also unique, famous for Juju Dhau (king yogurt) and traditional sweets. Community life revolves around temples and squares where locals gather for rituals and social events. Visitors can participate in festivals, interact with artisans, and experience Newar traditions firsthand. Bhaktapur’s culture is a living expression of history and spirituality, offering travelers an authentic glimpse into Nepalese customs, art, and daily life that has endured for centuries.-</p></div>
+  <div id="bhaktapur3" class="tab-content" style="display:none;"><img src="https://www.holidify.com/images/bgImages/BHAKTAPUR.jpg" alt=""><p>-Bhaktapur attracts tourists for both historical exploration and immersive cultural experiences. Walking through its cobblestone streets, visitors encounter artisans crafting pottery, wood carvings, and metalwork. The city’s squares host daily rituals, markets, and performances, creating a lively atmosphere. Tourists can join guided tours of temples, palaces, and museums to learn about the city’s rich past. Bhaktapur also offers culinary experiences, where travelers can taste traditional Newar dishes in local eateries. Photography enthusiasts enjoy capturing the city’s historic architecture, vibrant festivals, and panoramic rooftop views. The blend of history, art, and local lifestyle makes Bhaktapur a must-visit destination for travelers seeking authentic Nepalese heritage and unforgettable cultural experiences.-</p></div>
+</div>
+
+<!-- Chitwan Section -->
+<div id="chitwan" class="section">
+  <button class="back-btn" onclick="showMain()">← Back</button>
+  <img src="" alt="Chitwan">
+  <h2>Chitwan</h2>
+  <p>Chitwan, located in southern Nepal, is famous for its rich wildlife and lush forests. Known for Chitwan National Park, a UNESCO World Heritage site, it offers visitors a unique opportunity to explore jungles, rivers, and grasslands. The area is a haven for nature enthusiasts and adventure seekers alike.</p>
+  <div class="tabs">
+    <button class="active" onclick="openTab(event,'chitwan1')">Info 1</button>
+    <button onclick="openTab(event,'chitwan2')">Info 2</button>
+    <button onclick="openTab(event,'chitwan3')">Info 3</button>
+  </div>
+  <div id="chitwan1" class="tab-content"><img src="https://chitwannationalpark.gov.np/images/2024/05/24/1.jpg" alt=""><p>-Chitwan is home to diverse wildlife, including Bengal tigers, one-horned rhinoceroses, elephants, leopards, and over 500 species of birds. The Chitwan National Park protects dense forests, grasslands, and wetlands, providing a safe habitat for these species. Visitors can enjoy jeep safaris, elephant rides, and canoe trips to observe animals in their natural environment. The park’s rich biodiversity offers unique opportunities for wildlife photography, bird watching, and ecological study. The region’s rivers and grasslands complement the dense forest, creating a balanced ecosystem. Chitwan showcases Nepal’s commitment to wildlife conservation, combining adventure, education, and natural beauty.-</p></div>
+  <div id="chitwan2" class="tab-content" style="display:none;"><img src="https://cdn.kimkim.com/files/a/content_articles/featured_photos/4a8eeecd5c9854938f39e98a5144100052e91af8/medium-56421a1c8d25ba4943cea3ca141450a3.jpg" alt=""><p>-Chitwan attracts tourists seeking thrilling jungle adventures. Safari tours on elephants, jeeps, or canoes allow visitors to explore the dense forest while spotting wildlife. Canoeing along the Rapti and Narayani Rivers offers serene experiences surrounded by lush nature. Village tours provide insight into the Tharu community, their culture, and traditional practices. Activities like bird watching, cycling, and guided nature walks make Chitwan a perfect destination for eco-tourism. Accommodations range from jungle lodges to luxury resorts, ensuring comfort amid wilderness. Adventure enthusiasts and families alike can enjoy the park safely with experienced guides. Chitwan’s combination of wildlife, adventure, and cultural experiences makes it a memorable destination for all visitors.-</p></div>
+  <div id="chitwan3" class="tab-content" style="display:none;"><img src="https://www.linkagetour.com/public/uploads/makutsi-inset4%20final.jpg" alt=""><p>-Chitwan is not only rich in wildlife but also in cultural heritage. The Tharu people, indigenous to the region, have unique customs, dances, and festivals that visitors can experience. Traditional houses, handicrafts, and local markets reflect their lifestyle. Tourists can participate in Tharu cultural programs, learn about their agricultural practices, and enjoy local cuisine. Community-based tourism allows visitors to connect with the locals while supporting sustainable development. The harmony between human settlements and wildlife in Chitwan demonstrates coexistence and conservation. Festivals, folk music, and traditional rituals bring the community to life, giving tourists an immersive cultural experience. Chitwan thus offers a blend of adventure, nature, and cultural richness, making it a unique travel destination.-</p></div>
+</div>
+
+<!-- Lumbini Section -->
+<div id="lumbini" class="section">
+  <button class="back-btn" onclick="showMain()">← Back</button>
+  <img src="" alt="Lumbini">
+  <h2>Lumbini</h2>
+  <p>Lumbini, located in Nepal’s Rupandehi District, is the birthplace of Lord Gautama Buddha. Recognized as a UNESCO World Heritage Site, it is one of the world’s most important pilgrimage destinations. The serene environment, monasteries, and ancient ruins make Lumbini a sacred and peaceful place for spiritual seekers and travelers.</p>
+  <div class="tabs">
+    <button class="active" onclick="openTab(event,'lumbini1')">Info 1</button>
+    <button onclick="openTab(event,'lumbini2')">Info 2</button>
+    <button onclick="openTab(event,'lumbini3')">Info 3</button>
+  </div>
+  <div id="lumbini1" class="tab-content"><img src="https://arogyasangam.mgug.ac.in/public/uploads/blog-8.jpg" alt=""><p>-Lumbini holds immense historical and spiritual importance as the birthplace of Siddhartha Gautama, who later became Lord Buddha. The site marks the beginning of Buddhism, a faith followed by millions worldwide. Emperor Ashoka built the famous Ashoka Pillar here in the 3rd century BCE, commemorating Buddha’s birth. The Maya Devi Temple, dedicated to Buddha’s mother, stands at the heart of Lumbini, surrounded by sacred ponds and ancient ruins. Pilgrims and tourists visit from across the globe to pay homage and meditate in this tranquil setting. The area reflects centuries of devotion and reverence, offering a profound connection to peace, enlightenment, and the timeless teachings of the Buddha.-</p></div>
+  <div id="lumbini2" class="tab-content" style="display:none;"><img src="https://lumbinidevtrust.gov.np/upload_file/images/post/1719384181_1582569043_lumbini-temple2.jpg" alt=""><p>-Lumbini’s Monastic Zone is home to beautifully designed monasteries built by Buddhist communities from around the world. Each monastery reflects its country’s architectural style, symbolizing global unity and spiritual harmony. From the Thai and Myanmar temples with golden spires to the minimalist Japanese pagodas, the area showcases stunning diversity. The World Peace Pagoda, built by Japanese monks, stands as a symbol of global peace and compassion. Visitors can stroll through manicured gardens, meditation centers, and serene walkways that connect these sacred monuments. The combination of ancient ruins and modern monasteries makes Lumbini both a historical and spiritual masterpiece, offering travelers a place for reflection, learning, and peace.-</p></div>
+  <div id="lumbini3" class="tab-content" style="display:none;"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Lumbini_-_Mayadevi_Temple_from_South%2C_Lumbini_%289244243566%29.jpg/960px-Lumbini_-_Mayadevi_Temple_from_South%2C_Lumbini_%289244243566%29.jpg" alt=""><p>-Lumbini promotes peace, mindfulness, and intercultural understanding. Pilgrims, monks, and visitors gather here to meditate, chant, and share spiritual experiences. The tranquil environment encourages inner reflection, while cultural events highlight Buddhist art, philosophy, and heritage. The local communities around Lumbini also contribute to the area’s charm through their hospitality and traditional crafts. Visitors can explore museums, meditation gardens, and the Sacred Garden where Buddha was born. Sustainable tourism initiatives focus on preserving its natural and cultural environment. Lumbini thus represents more than a religious site—it’s a symbol of universal peace and compassion, welcoming people of all backgrounds to experience the teachings and legacy of the Enlightened One.-</p></div>
+</div>
+
+<!-- Annapurna Section -->
+<div id="annapurna" class="section">
+  <button class="back-btn" onclick="showMain()">← Back</button>
+  <img src="" alt="Annapurna">
+  <h2>Annapurna</h2>
+  <p>Annapurna, located in north-central Nepal, is one of the most magnificent mountain ranges in the Himalayas. Known for its breathtaking peaks and scenic trails, it’s a paradise for trekkers and adventure lovers. The region combines natural beauty, cultural richness, and spiritual tranquility, making it a top travel destination in Nepal.</p>
+  <div class="tabs">
+    <button class="active" onclick="openTab(event,'annapurna1')">Info 1</button>
+    <button onclick="openTab(event,'annapurna2')">Info 2</button>
+    <button onclick="openTab(event,'annapurna3')">Info 3</button>
+  </div>
+  <div id="annapurna1" class="tab-content"><img src="https://api.expedreview.com/storage/album/blog/8aeb7d09-917d-4579-8f04-016a32061ab5/8108/bca30c6a-48b6-4d0e-ae2f-feda98407a75-a47cdca81a3181d48cd8f5cab47aee3d.jpg" alt=""><p>-The Annapurna range includes several towering peaks, the highest being Annapurna I at 8,091 meters, the 10th highest mountain in the world. Surrounded by lush valleys, deep gorges, and sparkling rivers, the region showcases a stunning variety of landscapes. The Annapurna Conservation Area, Nepal’s largest protected region, preserves diverse flora and fauna, from dense rhododendron forests to alpine meadows. Snow-capped peaks reflect golden hues during sunrise and sunset, creating unforgettable views. The area’s serene lakes, waterfalls, and terraced fields highlight Nepal’s natural charm. Annapurna’s breathtaking scenery offers peace, adventure, and inspiration, attracting trekkers, photographers, and nature lovers from across the globe to experience its pristine wilderness and beauty.-</p></div>
+  <div id="annapurna2" class="tab-content" style="display:none;"><img src="https://www.muchbetteradventures.com/magazine/content/images/2025/10/Annapurna-Circuit-6-1600x1067--1-.jpeg" alt=""><p>-Annapurna is world-famous for its trekking routes, particularly the Annapurna Circuit and Annapurna Base Camp (ABC) trek. These trails offer panoramic views of majestic peaks like Dhaulagiri, Machapuchare, and Hiunchuli. Trekkers journey through diverse terrains—lush forests, mountain passes, and ethnic villages—encountering both natural challenges and cultural wonders. The routes are well-developed with lodges and teahouses that welcome travelers with warmth and traditional Nepali hospitality. Adventurers also enjoy mountaineering, mountain biking, and paragliding in the region. The changing landscapes, from tropical valleys to snowy summits, make each trek unforgettable. Annapurna’s combination of adventure, culture, and natural grandeur makes it one of the most rewarding trekking destinations in the world.-</p></div>
+  <div id="annapurna3" class="tab-content" style="display:none;"><img src="https://www.switchbacktravel.com/sites/default/files/images/articles/Annapurna%20Sanctuary%20Trek%20Nepal.JPG" alt=""><p>-The Annapurna region is rich in cultural diversity, home to ethnic groups such as Gurung, Magar, and Thakali communities. Villages like Ghandruk and Manang display traditional architecture, vibrant festivals, and warm hospitality. Locals maintain a deep connection with nature and Buddhism, reflected in monasteries, prayer flags, and chortens along trails. Visitors can experience traditional dances, local cuisine, and homestays that showcase Nepalese rural life. Agriculture and tourism form the backbone of the region’s economy, promoting sustainable living. The coexistence of culture, faith, and environment makes Annapurna more than just a mountain—it’s a living cultural landscape that represents the spirit, resilience, and harmony of the Himalayan people.-</p></div>
+</div>
+
+<footer>&copy; 2025 Nepal Explorer</footer>
+
+<script>
+function toggleMode() { document.body.classList.toggle('dark'); }
+
+function showSection(id) {
+  document.getElementById('main-section').style.display = 'none';
+  document.querySelector('footer').style.display = 'none';
+  document.getElementById(id).classList.add('active');
+}
+
+function showMain() {
+  document.getElementById('main-section').style.display = 'grid';
+  document.querySelector('footer').style.display = 'block';
+  document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+}
+
+// Tabs
+function openTab(evt, tabId) {
+  const section = evt.target.closest('.section');
+  section.querySelectorAll('.tab-content').forEach(tc => tc.style.display='none');
+  section.querySelectorAll('.tabs button').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(tabId).style.display='block';
+  evt.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>
